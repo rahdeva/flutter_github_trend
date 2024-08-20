@@ -11,8 +11,6 @@ class ErrorPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ThemeData theme = Theme.of(context);
-
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -24,7 +22,7 @@ class ErrorPage extends StatelessWidget {
             ),
             Text(
               'Something went wrong...',
-              style: theme.textTheme.bodyLarge!.copyWith(
+              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                 fontSize: 18,
                 fontWeight: FontWeight.w700,
               ),
@@ -33,7 +31,7 @@ class ErrorPage extends StatelessWidget {
             Text(
               "An alien is probably blocking your signal.",
               textAlign: TextAlign.center,
-              style: theme.textTheme.labelLarge!.copyWith(
+              style: Theme.of(context).textTheme.labelLarge!.copyWith(
                 color: AppColors.grey
               ),
             ),
@@ -54,7 +52,7 @@ class ErrorPage extends StatelessWidget {
             ),
             child:Text(
               'RETRY',
-              style: theme.textTheme.labelLarge!.copyWith(
+              style: Theme.of(context).textTheme.labelLarge!.copyWith(
                 fontWeight: FontWeight.w700,
                 color: AppColors.green
               ),

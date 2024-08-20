@@ -1,4 +1,7 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_github_trend/core/constants/colors.dart';
+import 'package:flutter_github_trend/core/routes/app_router.gr.dart';
 import 'package:flutter_github_trend/data/models/github_repository.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -122,6 +125,25 @@ class RepoListItem extends StatelessWidget {
                       ],
                     ),
                   ],
+                ),
+                const SizedBox(height: 8),
+                OutlinedButton(
+                  onPressed: (){
+                    context.router.push(const DetailRoute());
+                  },
+                  style: OutlinedButton.styleFrom(
+                    side: const BorderSide(width: 1, color: AppColors.grey),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(4)
+                    ),
+                  ),
+                  child:Text(
+                    'See Detail',
+                    style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                      fontWeight: FontWeight.w500,
+                      color: AppColors.black
+                    ),
+                  ),
                 ),
               ],
             ),

@@ -4,7 +4,6 @@ import 'package:flutter_github_trend/core/core.dart';
 import 'package:flutter_github_trend/data/datasources/github_repository_remote_datasource.dart';
 import 'package:flutter_github_trend/presentation/detail/bloc/detail_bloc.dart';
 import 'package:flutter_github_trend/presentation/home/bloc/home_bloc.dart';
-import 'package:flutter_github_trend/presentation/home/home_page.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 void main() {
@@ -16,6 +15,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AppRouter appRouter = AppRouter();
     return MultiBlocProvider(
       providers: [
         BlocProvider(
@@ -25,7 +25,8 @@ class MyApp extends StatelessWidget {
           create: (context) => DetailBloc(),
         ),
       ],
-      child: MaterialApp(
+      child: MaterialApp.router(
+        routerConfig: appRouter.config(),
         title: 'Flutter GitHub Trends',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
@@ -48,7 +49,6 @@ class MyApp extends StatelessWidget {
             ),
           ),
         ),
-        home: const HomePage(),
       ),
     );
   }
