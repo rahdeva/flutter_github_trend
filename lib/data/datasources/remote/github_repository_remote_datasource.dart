@@ -34,4 +34,28 @@ class GitHubRepositoryRemoteDatasource {
       return Left('Failed with status code: ${response.statusCode}');
     }
   }
+
+  Future<Either<String, GitHubRepository>> getRepositoryDetail({
+    final String? owner,
+    final String? repo
+  }) async {
+    final response = await http.get(
+      Uri.parse('${Variables.baseUrl}/repos/$owner/$repo'),
+      headers: <String, String>{
+        'Content-Type': 'application/json',
+        'Accept':'application/vnd.github+jso',
+      },
+    );
+
+    if (response.statusCode == 200) {
+      try {
+        final Map<String, dynamic> jsonResponse = jsonDecode(response.body);
+        return Right(GitHubRepository.fromJson(jsonResponse));
+      } catch (e) {
+        return Left('Failed to parse response: $e');
+      }
+    } else {
+      return Left('Failed with status code: ${response.statusCode}');
+    }
+  }
 }

@@ -30,7 +30,10 @@ class MyApp extends StatelessWidget {
           ),
         ),
         BlocProvider(
-          create: (context) => DetailBloc(),
+          create: (context) => DetailBloc(
+            GitHubRepositoryRemoteDatasource(),
+            sfManager
+          ),
         ),
       ],
       child: MaterialApp.router(
