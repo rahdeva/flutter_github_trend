@@ -64,5 +64,22 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         },
       );
     });
+
+    on<_Filter>((event, emit) {
+      if (state is _Loaded) {
+        List<GitHubRepository> filteredData = [];
+        switch (event.filter) {
+          case Filter.stars:
+            filteredData = [..._allRepositories]
+              ..sort((a, b) => b.stargazersCount!.compareTo(a.stargazersCount!));
+            break;
+          case Filter.name:
+            filteredData = [..._allRepositories]
+              ..sort((a, b) => a.name!.compareTo(b.name!));
+            break;
+        }
+        emit(_Loaded(filteredData, _hasNext));
+      }
+    });
   }
 }

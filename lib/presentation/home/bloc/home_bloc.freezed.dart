@@ -22,7 +22,7 @@ mixin _$HomeEvent {
     required TResult Function() fetch,
     required TResult Function() refresh,
     required TResult Function() loadMore,
-    required TResult Function() filter,
+    required TResult Function(Filter filter) filter,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -31,7 +31,7 @@ mixin _$HomeEvent {
     TResult? Function()? fetch,
     TResult? Function()? refresh,
     TResult? Function()? loadMore,
-    TResult? Function()? filter,
+    TResult? Function(Filter filter)? filter,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -40,7 +40,7 @@ mixin _$HomeEvent {
     TResult Function()? fetch,
     TResult Function()? refresh,
     TResult Function()? loadMore,
-    TResult Function()? filter,
+    TResult Function(Filter filter)? filter,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -139,7 +139,7 @@ class _$StartedImpl implements _Started {
     required TResult Function() fetch,
     required TResult Function() refresh,
     required TResult Function() loadMore,
-    required TResult Function() filter,
+    required TResult Function(Filter filter) filter,
   }) {
     return started();
   }
@@ -151,7 +151,7 @@ class _$StartedImpl implements _Started {
     TResult? Function()? fetch,
     TResult? Function()? refresh,
     TResult? Function()? loadMore,
-    TResult? Function()? filter,
+    TResult? Function(Filter filter)? filter,
   }) {
     return started?.call();
   }
@@ -163,7 +163,7 @@ class _$StartedImpl implements _Started {
     TResult Function()? fetch,
     TResult Function()? refresh,
     TResult Function()? loadMore,
-    TResult Function()? filter,
+    TResult Function(Filter filter)? filter,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -262,7 +262,7 @@ class _$FetchImpl implements _Fetch {
     required TResult Function() fetch,
     required TResult Function() refresh,
     required TResult Function() loadMore,
-    required TResult Function() filter,
+    required TResult Function(Filter filter) filter,
   }) {
     return fetch();
   }
@@ -274,7 +274,7 @@ class _$FetchImpl implements _Fetch {
     TResult? Function()? fetch,
     TResult? Function()? refresh,
     TResult? Function()? loadMore,
-    TResult? Function()? filter,
+    TResult? Function(Filter filter)? filter,
   }) {
     return fetch?.call();
   }
@@ -286,7 +286,7 @@ class _$FetchImpl implements _Fetch {
     TResult Function()? fetch,
     TResult Function()? refresh,
     TResult Function()? loadMore,
-    TResult Function()? filter,
+    TResult Function(Filter filter)? filter,
     required TResult orElse(),
   }) {
     if (fetch != null) {
@@ -385,7 +385,7 @@ class _$RefreshImpl implements _Refresh {
     required TResult Function() fetch,
     required TResult Function() refresh,
     required TResult Function() loadMore,
-    required TResult Function() filter,
+    required TResult Function(Filter filter) filter,
   }) {
     return refresh();
   }
@@ -397,7 +397,7 @@ class _$RefreshImpl implements _Refresh {
     TResult? Function()? fetch,
     TResult? Function()? refresh,
     TResult? Function()? loadMore,
-    TResult? Function()? filter,
+    TResult? Function(Filter filter)? filter,
   }) {
     return refresh?.call();
   }
@@ -409,7 +409,7 @@ class _$RefreshImpl implements _Refresh {
     TResult Function()? fetch,
     TResult Function()? refresh,
     TResult Function()? loadMore,
-    TResult Function()? filter,
+    TResult Function(Filter filter)? filter,
     required TResult orElse(),
   }) {
     if (refresh != null) {
@@ -508,7 +508,7 @@ class _$LoadMoreImpl implements _LoadMore {
     required TResult Function() fetch,
     required TResult Function() refresh,
     required TResult Function() loadMore,
-    required TResult Function() filter,
+    required TResult Function(Filter filter) filter,
   }) {
     return loadMore();
   }
@@ -520,7 +520,7 @@ class _$LoadMoreImpl implements _LoadMore {
     TResult? Function()? fetch,
     TResult? Function()? refresh,
     TResult? Function()? loadMore,
-    TResult? Function()? filter,
+    TResult? Function(Filter filter)? filter,
   }) {
     return loadMore?.call();
   }
@@ -532,7 +532,7 @@ class _$LoadMoreImpl implements _LoadMore {
     TResult Function()? fetch,
     TResult Function()? refresh,
     TResult Function()? loadMore,
-    TResult Function()? filter,
+    TResult Function(Filter filter)? filter,
     required TResult orElse(),
   }) {
     if (loadMore != null) {
@@ -591,6 +591,8 @@ abstract class _$$FilterImplCopyWith<$Res> {
   factory _$$FilterImplCopyWith(
           _$FilterImpl value, $Res Function(_$FilterImpl) then) =
       __$$FilterImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({Filter filter});
 }
 
 /// @nodoc
@@ -603,26 +605,51 @@ class __$$FilterImplCopyWithImpl<$Res>
 
   /// Create a copy of HomeEvent
   /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? filter = null,
+  }) {
+    return _then(_$FilterImpl(
+      null == filter
+          ? _value.filter
+          : filter // ignore: cast_nullable_to_non_nullable
+              as Filter,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$FilterImpl implements _Filter {
-  const _$FilterImpl();
+  const _$FilterImpl(this.filter);
+
+  @override
+  final Filter filter;
 
   @override
   String toString() {
-    return 'HomeEvent.filter()';
+    return 'HomeEvent.filter(filter: $filter)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$FilterImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$FilterImpl &&
+            (identical(other.filter, filter) || other.filter == filter));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, filter);
+
+  /// Create a copy of HomeEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$FilterImplCopyWith<_$FilterImpl> get copyWith =>
+      __$$FilterImplCopyWithImpl<_$FilterImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -631,9 +658,9 @@ class _$FilterImpl implements _Filter {
     required TResult Function() fetch,
     required TResult Function() refresh,
     required TResult Function() loadMore,
-    required TResult Function() filter,
+    required TResult Function(Filter filter) filter,
   }) {
-    return filter();
+    return filter(this.filter);
   }
 
   @override
@@ -643,9 +670,9 @@ class _$FilterImpl implements _Filter {
     TResult? Function()? fetch,
     TResult? Function()? refresh,
     TResult? Function()? loadMore,
-    TResult? Function()? filter,
+    TResult? Function(Filter filter)? filter,
   }) {
-    return filter?.call();
+    return filter?.call(this.filter);
   }
 
   @override
@@ -655,11 +682,11 @@ class _$FilterImpl implements _Filter {
     TResult Function()? fetch,
     TResult Function()? refresh,
     TResult Function()? loadMore,
-    TResult Function()? filter,
+    TResult Function(Filter filter)? filter,
     required TResult orElse(),
   }) {
     if (filter != null) {
-      return filter();
+      return filter(this.filter);
     }
     return orElse();
   }
@@ -706,7 +733,15 @@ class _$FilterImpl implements _Filter {
 }
 
 abstract class _Filter implements HomeEvent {
-  const factory _Filter() = _$FilterImpl;
+  const factory _Filter(final Filter filter) = _$FilterImpl;
+
+  Filter get filter;
+
+  /// Create a copy of HomeEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$FilterImplCopyWith<_$FilterImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc

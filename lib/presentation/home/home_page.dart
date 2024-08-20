@@ -29,6 +29,7 @@ class HomePage extends StatelessWidget {
               PopupMenuItem<int>(
                 value: 0,
                 onTap: () {
+                  homeBloc.add(const HomeEvent.filter(Filter.stars));
                 },
                 child: const Padding(
                   padding: EdgeInsets.only(right: 8),
@@ -38,6 +39,7 @@ class HomePage extends StatelessWidget {
               PopupMenuItem<int>(
                 value: 1,
                 onTap: () {
+                  homeBloc.add(const HomeEvent.filter(Filter.name));
                 },
                 child: const Padding(
                   padding: EdgeInsets.only(right: 8),
