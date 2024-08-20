@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:flutter_github_trend/data/datasources/github_repository_remote_datasource.dart';
+import 'package:flutter_github_trend/data/datasources/local/shared_preference_manager.dart';
+import 'package:flutter_github_trend/data/datasources/remote/github_repository_remote_datasource.dart';
 import 'package:flutter_github_trend/data/models/github_repository.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -10,12 +11,14 @@ part 'home_bloc.freezed.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final GitHubRepositoryRemoteDatasource githubRepoRemoteDatasource;
+  final SharedPreferencesManager sharedPreferencesManager;
   int _currentPage = 1;
   bool _hasNext = true;
   List<GitHubRepository> _allRepositories = [];
 
   HomeBloc(
-    this.githubRepoRemoteDatasource
+    this.githubRepoRemoteDatasource,
+    this.sharedPreferencesManager,
   ) : super(const _Initial()) {
     on<_Fetch>((event, emit) async {
       if (await checkConnectivity()) {
@@ -28,10 +31,20 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
             _allRepositories = data;
             _hasNext = data.length >= 10;
             emit(_Loaded(data, _hasNext));
+
+            // cache
+            sharedPreferencesManager.setRepositories('repo', data);
           },
         );
       } else {
-        emit(const _Error("No internet connection"));
+        List<GitHubRepository>? cachedData = sharedPreferencesManager.getRepositories('repo');
+        if (cachedData != null && cachedData.isNotEmpty) {
+          _allRepositories = cachedData;
+          _hasNext = cachedData.length >= 10;
+          emit(_Loaded(cachedData, _hasNext));
+        } else {
+          emit(const _Error('No internet connection and no cached data available.'));
+        }
       }
     });
 
@@ -47,10 +60,20 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
             _allRepositories = data;
             _hasNext = data.length >= 10;
             emit(_Loaded(data, _hasNext));
+
+            sharedPreferencesManager.setRepositories('repo', data);
           },
         );
       } else {
-        emit(const _Error("No internet connection"));
+        List<GitHubRepository>? cachedData = sharedPreferencesManager.getRepositories('repo');
+        if (cachedData != null && cachedData.isNotEmpty) {
+          _allRepositories = cachedData;
+          print("wo");
+          emit(_Loaded(cachedData, false));
+        } else {
+          print("woi2");
+          emit(const _Error("No internet connection"));
+        }
       }
     });
 
@@ -68,13 +91,21 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
             if (currentState is _Loaded) {
               final updatedRepositories = [...currentState.repositories, ...data];
               emit(_Loaded(updatedRepositories, _hasNext));
+
+              sharedPreferencesManager.setRepositories('repo', updatedRepositories);
             } else {
               emit(_Loaded(data, _hasNext));
             }
           },
         );
       } else {
-        emit(const _Error("No internet connection"));
+        List<GitHubRepository>? cachedData = sharedPreferencesManager.getRepositories('repo');
+        if (cachedData != null && cachedData.isNotEmpty) {
+          _allRepositories = cachedData;
+          emit(_Loaded(cachedData, false));
+        } else {
+          emit(const _Error("No internet connection"));
+        }
       }
     });
 

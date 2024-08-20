@@ -1,18 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_github_trend/core/core.dart';
-import 'package:flutter_github_trend/data/datasources/github_repository_remote_datasource.dart';
+import 'package:flutter_github_trend/data/datasources/local/shared_preference_manager.dart';
+import 'package:flutter_github_trend/data/datasources/remote/github_repository_remote_datasource.dart';
 import 'package:flutter_github_trend/presentation/detail/bloc/detail_bloc.dart';
 import 'package:flutter_github_trend/presentation/home/bloc/home_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(const MyApp());
+  final sfManager = await SharedPreferencesManager.getInstance();
+
+  runApp(MyApp(sfManager: sfManager));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final SharedPreferencesManager sfManager;
+  const MyApp({super.key, required this.sfManager});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +24,10 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => HomeBloc(GitHubRepositoryRemoteDatasource()),
+          create: (context) => HomeBloc(
+            GitHubRepositoryRemoteDatasource(),
+            sfManager
+          ),
         ),
         BlocProvider(
           create: (context) => DetailBloc(),
