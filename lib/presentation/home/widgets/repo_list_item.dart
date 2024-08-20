@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_github_trend/data/models/github_repository.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class RepoListItem extends StatelessWidget {
   const RepoListItem({
-    super.key,
+    super.key, 
+    required this.item,
   });
+
+  final GitHubRepository item;
 
   @override
   Widget build(BuildContext context) {
@@ -21,25 +25,25 @@ class RepoListItem extends StatelessWidget {
           width: 40,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(50),
-            image: const DecorationImage(
+            image: DecorationImage(
               image: NetworkImage(
-                "https://avatars.githubusercontent.com/u/14101776?v=4",
+                item.owner?.avatarUrl ?? ""
               ),
             ),
           ),
         ),
         title: Text(
-          "flutter",
+          item.owner?.login ?? "-",
           style: Theme.of(context).textTheme.bodySmall!.copyWith(
             color: Colors.black,
             fontWeight: FontWeight.w400,
           ),
         ),
         subtitle: Text(
-          "repoName",
+          item.name ?? "-",
           style: Theme.of(context).textTheme.bodyMedium!.copyWith(
             color: Colors.black,
-            fontWeight: FontWeight.w500,
+            fontWeight: FontWeight.w600,
           ),
         ),
         children: <Widget>[
@@ -55,12 +59,13 @@ class RepoListItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Description',
+                  item.description ?? "-",
                   style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                     color: Colors.black,
                     fontWeight: FontWeight.w400,
                   ),
                 ),
+                const SizedBox(height: 8),
                 Row(
                   children: [
                     Row(
@@ -72,7 +77,7 @@ class RepoListItem extends StatelessWidget {
                         ),
                         const SizedBox(width: 4),
                         Text(
-                          'Javascript',
+                          item.language ?? "-",
                           style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                             color: Colors.black,
                             fontWeight: FontWeight.w400,
@@ -90,7 +95,7 @@ class RepoListItem extends StatelessWidget {
                         ),
                         const SizedBox(width: 4),
                         Text(
-                          '10',
+                          item.stargazersCount.toString(),
                           style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                             color: Colors.black,
                             fontWeight: FontWeight.w400,
@@ -108,7 +113,7 @@ class RepoListItem extends StatelessWidget {
                         ),
                         const SizedBox(width: 4),
                         Text(
-                          '6',
+                          item.forksCount.toString(),
                           style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                             color: Colors.black,
                             fontWeight: FontWeight.w400,

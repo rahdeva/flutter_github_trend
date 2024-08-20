@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_github_trend/core/core.dart';
+import 'package:flutter_github_trend/data/datasources/github_repository_remote_datasource.dart';
 import 'package:flutter_github_trend/presentation/detail/bloc/detail_bloc.dart';
 import 'package:flutter_github_trend/presentation/home/bloc/home_bloc.dart';
 import 'package:flutter_github_trend/presentation/home/home_page.dart';
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => HomeBloc(),
+          create: (context) => HomeBloc(GitHubRepositoryRemoteDatasource()),
         ),
         BlocProvider(
           create: (context) => DetailBloc(),
@@ -26,6 +27,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         title: 'Flutter GitHub Trends',
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primary),
           dialogTheme: const DialogTheme(elevation: 0),
