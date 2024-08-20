@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_github_trend/core/core.dart';
 import 'package:flutter_github_trend/presentation/home/bloc/home_bloc.dart';
 import 'package:flutter_github_trend/presentation/home/widgets/repo_list_builder.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -72,7 +73,9 @@ class HomePage extends StatelessWidget {
             child: state.maybeWhen(
               loading: () => const Center(child: CircularProgressIndicator()),
               loaded: (repositories, hasNext) => RepoListBuilder(context: context, state: state),
-              error: (error) => Center(child: Text('Something went wrong. $error')),
+              error: (error) => ErrorPage(onRetry: (){
+                homeBloc.add(const HomeEvent.loadMore());
+              }),
               orElse: () => const Center(child: Text('Something went wrong')),
             ),
           );

@@ -13,7 +13,7 @@ class GitHubRepositoryRemoteDatasource {
     final int perPage = 10,
   }) async {
     final response = await http.get(
-      Uri.parse('${Variables.baseUrl}/orgs/flutter/repos?page=$page&per_page=$perPage'),
+      Uri.parse('${Variables.baseUrl}/orgs/fluttser/repos?page=$page&per_page=$perPage'),
       headers: <String, String>{
         'Content-Type': 'application/json',
         'Accept':'application/vnd.github+jso',
