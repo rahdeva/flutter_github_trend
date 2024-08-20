@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_github_trend/core/components/shimmer.dart';
 import 'package:flutter_github_trend/core/core.dart';
 import 'package:flutter_github_trend/presentation/detail/bloc/detail_bloc.dart';
 import 'package:flutter_github_trend/presentation/detail/widgets/data_detail_item.dart';
@@ -46,11 +47,15 @@ class DetailPage extends StatelessWidget {
               refreshController.refreshCompleted();
             },
             child: state.maybeWhen(
-              loading: () => const Center(child: CircularProgressIndicator()),
+              loading: () => ShimmerWidget.detailScreenShimmer(
+                margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 16)
+              ),
               error: (error) => ErrorPage(onRetry: (){
                 detailBloc.add(DetailEvent.fetch(owner: owner, repo: repo));
               }),
-              orElse: () => const Center(child: CircularProgressIndicator()),
+              orElse: () => ShimmerWidget.detailScreenShimmer(
+                margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 16)
+              ),
               loaded: (repository) => Container(
                 margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
                 child: SingleChildScrollView(

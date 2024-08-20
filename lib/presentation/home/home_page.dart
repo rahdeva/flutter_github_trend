@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_github_trend/core/components/shimmer.dart';
 import 'package:flutter_github_trend/core/core.dart';
 import 'package:flutter_github_trend/presentation/home/bloc/home_bloc.dart';
 import 'package:flutter_github_trend/presentation/home/widgets/repo_list_builder.dart';
@@ -73,12 +74,17 @@ class HomePage extends StatelessWidget {
               refreshController.loadComplete();
             },
             child: state.maybeWhen(
-              loading: () => const Center(child: CircularProgressIndicator()),
+              // loading: () => const Center(child: CircularProgressIndicator()),
+              loading: () => ShimmerWidget.listScreenShimmer(
+                margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 16)
+              ),
               loaded: (repositories, hasNext) => RepoListBuilder(context: context, state: state),
               error: (error) => ErrorPage(onRetry: (){
                 homeBloc.add(const HomeEvent.fetch());
               }),
-              orElse: () => const Center(child: CircularProgressIndicator()),
+              orElse: () => ShimmerWidget.listScreenShimmer(
+                margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 16)
+              ),
             ),
           );
         },
