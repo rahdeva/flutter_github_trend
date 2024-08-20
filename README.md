@@ -15,17 +15,17 @@ Demo Video :
 <table>
   <tr>
      <td>Home</td>
+     <td>Filter</td>
      <td>Detail</td>
-     <td>Search</td>
   </tr>
   <tr>
-    <td><img src="arts/home.jpg" width=280 ></td>
-    <td><img src="arts/detail.jpg" width=280 ></td>
-    <td><img src="arts/search.jpg" width=280 ></td>
+    <td><img src="https://github.com/user-attachments/assets/89d54623-cc11-4612-acfd-58a4a27beddd" width=280 ></td>
+    <td><img src="https://github.com/user-attachments/assets/7b55f6b0-d560-4fae-9d13-ce6242fea294" width=280 ></td>
+    <td><img src="https://github.com/user-attachments/assets/fdb4ca5b-e759-4a3f-b4e3-713f1e2daaee" width=280 ></td>
   </tr>
 </table>
 
-### How to Use the Repository
+### How to Use the Repository!
 
 1. **Clone the Repository**
    - Open your terminal or command prompt.
