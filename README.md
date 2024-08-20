@@ -1,7 +1,7 @@
 # Flutter GitHub Trend
 Flutter GitHub Trend is a new Flutter project designed to showcase the latest trending repositories on GitHub.
 
-Demo Video : 
+Demo Video : https://youtu.be/Vlxnp_n3hdc
 
 ## Features
 
