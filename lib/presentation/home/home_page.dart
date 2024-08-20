@@ -76,9 +76,9 @@ class HomePage extends StatelessWidget {
               loading: () => const Center(child: CircularProgressIndicator()),
               loaded: (repositories, hasNext) => RepoListBuilder(context: context, state: state),
               error: (error) => ErrorPage(onRetry: (){
-                homeBloc.add(const HomeEvent.loadMore());
+                homeBloc.add(const HomeEvent.fetch());
               }),
-              orElse: () => const Center(child: Text('Something went wrong')),
+              orElse: () => const Center(child: CircularProgressIndicator()),
             ),
           );
         },

@@ -7,6 +7,7 @@ import 'package:flutter_github_trend/presentation/home/bloc/home_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 

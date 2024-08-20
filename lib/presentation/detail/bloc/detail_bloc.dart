@@ -6,9 +6,8 @@ part 'detail_state.dart';
 part 'detail_bloc.freezed.dart';
 
 class DetailBloc extends Bloc<DetailEvent, DetailState> {
-  DetailBloc() : super(_Initial()) {
+  DetailBloc() : super(const _Initial()) {
     on<DetailEvent>((event, emit) {
-      // TODO: implement event handler
     });
   }
 }
